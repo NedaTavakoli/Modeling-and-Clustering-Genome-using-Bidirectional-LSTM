@@ -1,0 +1,27 @@
+#This is a comment
+#PBS -N Ref
+#PBS -q hive-gpu
+#PBS -l nodes=1:ppn=4:gpus=1:exclusive_process
+#PBS -l walltime=120:00:00 
+
+
+echo "Training for DNA sequence"
+echo $PBS_O_WORKDIR
+#ls
+cd data/dna_align-master/
+#ls
+module load anaconda2
+source activate myenv
+
+python clean.py --path data/MT-human.fa --w 2 --savepath data/MT-human_clean
+python main.py --w 2 --hidden_size 1000 --num_layers 1 --num_steps 12 --gene_name 'MT-human_clean' --save data/saved_model
+
+python clean.py --path data/MT-human.fa --w 4 --savepath data/MT-human_clean
+python main.py --w 4 --hidden_size 1000 --num_layers 1 --num_steps 12 --gene_name 'MT-human_clean' --save data/saved_model
+
+
+python clean.py --path data/MT-human.fa --w 6 --savepath data/MT-human_clean
+python main.py --w 6 --hidden_size 1000 --num_layers 1 --num_steps 12 --gene_name 'MT-human_clean' --save data/saved_model
+
+
+py
