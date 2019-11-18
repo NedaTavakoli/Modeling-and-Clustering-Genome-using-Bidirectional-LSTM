@@ -1,4 +1,4 @@
-# Modeling-and-Clustering-Genome-using-Bidirectioanl-LSTM
+# Modeling-and-Clustering-Genome-using-Bidirectional-LSTM
 Read Me:
 
 We ran the experiments for the following configurations. At each configuration, we model a reference genome and a list of query sequences. Two types of outputs are reported: vector representations (after training the model using LSTM), and perplexity of each epoch of training.
