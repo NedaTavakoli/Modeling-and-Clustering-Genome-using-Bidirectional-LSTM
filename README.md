@@ -74,15 +74,17 @@ Configuration 3:
 			
 Clustering Results:
 Neda's Model:
-Word size | KMeans | DBScan | GMM | Number of clusters 
---------- | ------ | ------ | --- | ------------------ 
-4 | 0.932 | 0.935 | 0.935 | 2 
-2 | 0.184 | 0.186 | 0.186 | 2
-6 | 0.704 | 0.704 | 0.709 | 2
+
+|Word size | KMeans | DBScan | GMM | Number of clusters |
+|--------- | ------ | ------ | --- | ------------------ |
+|4 | 0.932 | 0.935 | 0.935 | 2 |
+|2 | 0.184 | 0.186 | 0.186 | 2 |
+|6 | 0.704 | 0.704 | 0.709 | 2 |
 
 Lane's Model
 
-4 | 0.305 | 0.206 | 0.305 | 2
-
+|Word size | KMeans | DBScan | GMM | Number of clusters |
+|--------- | ------ | ------ | --- | ------------------ |
+| 4 | 0.305 | 0.206 | 0.305 | 2 |
 
 
