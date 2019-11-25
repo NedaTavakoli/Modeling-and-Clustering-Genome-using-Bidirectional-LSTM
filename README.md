@@ -71,4 +71,18 @@ Configuration 3:
 			Ref genome: Output/Ref/Perplexity for 2, 4, 6
 			List of query sequences:  Output/Query/Perplexity for 24, 48, 72
 			
+			
+Clustering Results:
+Neda's Model:
+Word size | KMeans | DBScan | GMM | Number of clusters 
+--------- | ------ | ------ | --- | ------------------ 
+4 | 0.932 | 0.935 | 0.935 | 2 
+2 | 0.184 | 0.186 | 0.186 | 2
+6 | 0.704 | 0.704 | 0.709 | 2
+
+Lane's Model
+
+4 | 0.305 | 0.206 | 0.305 | 2
+
+
 
