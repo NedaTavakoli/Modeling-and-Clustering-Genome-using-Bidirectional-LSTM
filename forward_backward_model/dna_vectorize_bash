@@ -1,0 +1,1 @@
+python run_script.py --data data/ref_genome --query_sequences query_list.csv --embedding_size 50 --hidden_size 100 --num_layers 1 --num_epochs 2 --save dna_sequence --preprocess_dna 3 --create_model True --vectorize_sequences True

@@ -1,0 +1,6 @@
+.idea/*
+scratch/*
+__pycache__/*
+
+# Jupyter Notebook
+.ipynb_checkpoints
