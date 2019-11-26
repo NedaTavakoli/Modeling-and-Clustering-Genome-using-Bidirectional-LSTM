@@ -216,9 +216,11 @@ def vector_seq(device, models, my_words):
     with open("data/" + args.query_sequences, "r") as f:
         read_text = f.read().split(",")  # Returns a list of query sequences (list of strings)
 
-    file_path = args.save + "_vector_rep.csv"  # Create file path
-    if os.path.exists(file_path):
-        os.remove(file_path)  # Remove previous file
+    file_path_hidden = args.save + "_vector_rep_hidden.csv"  # Create file path
+    file_path_cell_state = args.save + "_vector_rep_cell_state.csv"  # Create file path
+    for file_path in [file_path_hidden, file_path_cell_state]:
+        if os.path.exists(file_path):
+            os.remove(file_path)  # Remove previous file
 
     for sequence in read_text:  # For each query sequence
         sequence = my_words.text_to_words(sequence)  # Convert query string to list of words
@@ -232,18 +234,19 @@ def vector_seq(device, models, my_words):
             # Output of run_prediction: last_word, h_f, c_f
             last_word, h_f, c_f = run_prediction(models[direction], my_words=my_words, inputs=sequence, device=device)
             # my_output = c_f.to(torch.device('cpu')).numpy()
-            my_output = c_f.detach().cpu().clone().numpy()
-            with open(file_path, "a+") as f:
-                # numpy.savetxt(fname, X, fmt='%.18e', delimiter=' ',
-                # No delimiter expected (MAKE SURE YOU UNDERSTAND WHAT ALLOWING FOR A DELIMETER DOES BEFORE REMOVING)
-                np.savetxt(fname=f, X=my_output, fmt='%.18e', delimiter='ERROR', newline=',')
+            for (file_path, my_output) in [(file_path_hidden, h_f), (file_path_cell_state, c_f)]:
+                my_output = my_output.detach().cpu().clone().numpy()
+                with open(file_path, "a+") as f:
+                    # numpy.savetxt(fname, X, fmt='%.18e', delimiter=' ',
+                    # No delimiter expected (MAKE SURE YOU UNDERSTAND WHAT ALLOWING FOR A DELIMETER DOES BEFORE REMOVING)
+                    np.savetxt(fname=f, X=my_output, fmt='%.18e', delimiter='ERROR', newline=',')
 
-            if models[direction].direction == "backward":
-                with open(file_path, "r+") as f:  # This removes the comma and adds newline after backward hidden layer
-                    f.seek(0, os.SEEK_END)  # seek to end of file
-                    f.seek(f.tell() - 1, os.SEEK_SET)  # Go towards the begining of the file 1 character
-                    f.truncate()  # Remove the comma after the last value
-                    f.write("\n")  # Make a newline after backward cell state
+                if models[direction].direction == "backward":
+                    with open(file_path, "r+") as f:  # This removes the comma and adds newline after backward hidden layer
+                        f.seek(0, os.SEEK_END)  # seek to end of file
+                        f.seek(f.tell() - 1, os.SEEK_SET)  # Go towards the begining of the file 1 character
+                        f.truncate()  # Remove the comma after the last value
+                        f.write("\n")  # Make a newline after backward cell state
 
 
 def vector_word(device, models, my_words):
