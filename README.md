@@ -87,4 +87,5 @@ Lane's Model
 |--------- | ------ | ------ | --- | ------------------ |
 | 4 | 0.305 | 0.206 | 0.305 | 2 |
 
-
+# Modeling and Clustering Genome using Foward Backward LSTM
+Another model structure was implemented where two LSTMs were trained on the input data.  One LSTM progressed forwards through the training data while the other progressed backwards.  
