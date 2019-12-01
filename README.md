@@ -18,6 +18,8 @@ The feasibility of the proposed BiLSTM-based model is demonstrated through a cas
 
 We ran the experiments for the following configurations. At each configuration, we model a reference genome and a list of query sequences. Two types of outputs are reported: vector representations (after training the model using LSTM), and perplexity of each epoch of training. (Note: the code for the BiLSTM model is private and might be given upon request).
 
+The following picture shows batches and Epoch inside the reference genome.
+![trainingModel](CS6220-ModeilingGenome/Architecture/training_model.png)
 
 # Configuration 1:
 	len data:  158970136 characters  (data/Ref Genome]-MT-human2.fa)
