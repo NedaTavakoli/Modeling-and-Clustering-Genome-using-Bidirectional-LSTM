@@ -103,7 +103,35 @@ Lane's Model
 | 4 | 0.305 | 0.206 | 0.305 | 2 |
 
 ##  Model 2:  Modeling and Clustering Genome using Foward Backward LSTM
-Another model structure was implemented where two LSTMs were trained on the input data.  One LSTM progressed forwards through the training data while the other progressed backwards.  
+Lane also wrote the code for a forward backward LSTM, where one LSTM progressed forwards through the training data while the other progressed backwards.
+This model was trained on the fasta representation for Chromosome 12 dataset for two configurations on Google Colab, the details of which are given as follows:
+
+# Configuration 1
+1) Embedding size = 100
+2) Number of hidden layers = 2
+2) Size (No. of neurons) of hidden layer= 100
+3) Number of steps = 35
+4) Dictionary comprises 4-character words
+5) Batch-size = 20
+6) No. of epochs = 10
+
+
+# Confguration 2 
+1) Embedding size = 100
+2) Number of hidden layers = 2
+2) Size (No. of neurons) of hidden layer= 100
+3) Number of steps = 35
+4) Dictionary comprises 1-character words
+5) Batch-size = 20
+6) No. of epochs = 10
+
+# Clustering Results:
+
+|Word size | KMeans | DBScan | GMM | Number of clusters |
+|--------- | ------ | ------ | --- | ------------------ |
+| 4 | 0.305 | 0.206 | 0.305 | 2 |
+
+
 
 
 ##  Model 3:  Modeling English text using LSTM
