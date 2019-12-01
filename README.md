@@ -138,10 +138,10 @@ This model was trained on the fasta representation for Chromosome 12 dataset for
 
 |Number of epochs |Kmeans | GMM | DBSCAN | file |
 |-----------------|-------|-----|--------|------|
-| yy | 0.714, 90 | 0.714, 90 | 0.282, 2  | text_vectors_lane_hidden_state_200 |
-| yy | 0.722, 87 | 0.718, 88 | 0.435, 2  | text_vectors_lane_cell_state_200|
-| yy | 0.728, 87 | 0.724, 87 |	0.457, 2 | text_vectors_lane_200_epochs|
-| yy | 0.721, 84 | 0.719, 84 | 0.37, 2   | text_vectors_lane_100_epochs|
+| 200 | 0.714, 90 | 0.714, 90 | 0.282, 2  | text_vectors_lane_hidden_state_200 |
+| 200 | 0.722, 87 | 0.718, 88 | 0.435, 2  | text_vectors_lane_cell_state_200|
+| 200 | 0.728, 87 | 0.724, 87 |	0.457, 2 | text_vectors_lane_200_epochs|
+| 100 | 0.721, 84 | 0.719, 84 | 0.37, 2   | text_vectors_lane_100_epochs|
 
 
 
