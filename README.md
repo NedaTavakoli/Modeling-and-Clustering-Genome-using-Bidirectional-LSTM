@@ -1,5 +1,7 @@
 # Modeling-and-Clustering-Genome-using-Bidirectional-LSTM
 
+# Project website: https://nedatavakoli.github.io/Modeling-and-Clustering-Genome-using-Bidirectional-LSTM/
+
 In this project, two Deep-Learning based models are presented to model genome data set: Bidirectioanl LSTM and forward-backward LSTM. If you have any questions feel free to contact us.
 ##  Model 1: Bidirectional LSTM to model human genome:
 The LSTM-based learning networks are an extension for RNNs. These models are capable of addressing the vanishing gradient problem in a very clean manner (i.e., RNN's difficulties in learning long-term dependencies). LSTM networks extend the RNNs memory and enable them learn long-term dependencies. They can remember information over a long period of time and can read, write, and delete information from theirs memories. The LSTM memory is called a **gated cell***, in which a gate refers to its ability to make the decision of preserving or ignoring the memory. The follwoing picture shows one LSTM cell.
