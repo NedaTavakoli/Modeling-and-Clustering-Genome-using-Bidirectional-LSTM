@@ -115,6 +115,6 @@ Another model structure was implemented where two LSTMs were trained on the inpu
 ### Note:  If you have any questions feel free to contact us:
 	Neda Tavakoli, email: neda.tavakoli@gatech.edu, 
 	Lane Dalan, email:
-	Richa Tibrewal
+	Richa Tibrewal, email: richa.besu@gmail.com
 	Arthita Ghosh
 	Harish Kupo KPS:
