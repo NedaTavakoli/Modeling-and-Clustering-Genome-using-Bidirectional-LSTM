@@ -20,7 +20,7 @@ We ran the experiments for the following configurations. At each configuration, 
 # Configuration 1:
 	len data:  158970136 characters  (data/Ref Genome]-MT-human2.fa)
 	word length =  2
-    batch_size=100
+        batch_size=100
 	hidden_size=1000
 	initial_learning rate=0.001
 	num_epochs=100
