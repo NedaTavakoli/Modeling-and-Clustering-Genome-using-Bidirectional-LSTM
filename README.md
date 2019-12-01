@@ -136,6 +136,11 @@ This model was trained on the fasta representation for Chromosome 12 dataset for
 
 ##  Model 3:  Modeling English text using LSTM
 
+|Number of epochs |Kmeans | GMM | DBSCAN | file |
+| |0.714, 90	| 0.714, 90	| 0.282, 2 |	text_vectors_lane_hidden_state_200 |
+| |0.722, 87	| 0.718, 88	| 0.435, 2 |	text_vectors_lane_cell_state_200|
+| | 0.728, 87| 	0.724, 87 |	0.457, 2 |	text_vectors_lane_200_epochs|
+| | 0.721, 84	| 0.719, 84	| 0.37, 2|		text_vectors_lane_100_epochs|
 
 
 
@@ -143,6 +148,6 @@ This model was trained on the fasta representation for Chromosome 12 dataset for
 ### Note:  If you have any questions feel free to contact us:
 	Neda Tavakoli, email: neda.tavakoli@gatech.edu, 
 	Lane Dalan, email:
-	Richa Tibrewal, email: richa.besu@gmail.com
-	Arthita Ghosh
+	Richa Tibrewal, email: richa.tibrewal@gatech.edu
+	Arthita Ghosh, email: aghosh80@gatech.edu
 	Harish Kupo KPS:
