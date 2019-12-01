@@ -1,7 +1,7 @@
 # Modeling-and-Clustering-Genome-using-Bidirectional-LSTM
 Read Me:
-![LSTM](CS6220-ModeilingGenome/Architecture/lstm.pdf)
-![BiLSTM](CS6220-ModeilingGenome/Architecture/BiLSTM.pdf)
+![LSTM](CS6220-ModeilingGenome/Architecture/lstm.png)
+![BiLSTM](CS6220-ModeilingGenome/Architecture/BiLSTM.png)
 
 We ran the experiments for the following configurations. At each configuration, we model a reference genome and a list of query sequences. Two types of outputs are reported: vector representations (after training the model using LSTM), and perplexity of each epoch of training.
 
