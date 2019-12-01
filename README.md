@@ -1,6 +1,6 @@
 # Modeling-and-Clustering-Genome-using-Bidirectional-LSTM
 
-# Project website: https://nedatavakoli.github.io/Modeling-and-Clustering-Genome-using-Bidirectional-LSTM/
+### Project website: https://nedatavakoli.github.io/Modeling-and-Clustering-Genome-using-Bidirectional-LSTM/
 
 In this project, two Deep-Learning based models are presented to model genome data set: Bidirectioanl LSTM and forward-backward LSTM. If you have any questions feel free to contact us.
 ##  Model 1: Bidirectional LSTM to model human genome:
