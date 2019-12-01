@@ -1,10 +1,13 @@
 # Modeling-and-Clustering-Genome-using-Bidirectional-LSTM
+
+
 Read Me:
-![LSTM](CS6220-ModeilingGenome/Architecture/lstm.png)
-![BiLSTM](CS6220-ModeilingGenome/Architecture/BiLSTM.png)
 
-We ran the experiments for the following configurations. At each configuration, we model a reference genome and a list of query sequences. Two types of outputs are reported: vector representations (after training the model using LSTM), and perplexity of each epoch of training.
+We ran the experiments for the following configurations. At each configuration, we model a reference genome and a list of query sequences.
 
+##  Model 1: Bidirectional LSTM to model human genome:
+
+The feasibility of the proposed BiLSTM-based model is demonstrated through a case study in which sequences of one chromosome are modeled. We developed several Python scripts to implement and assess the modeling aspect of the proposed BiLSTM-based genome modeling algorithm. We evaluated the model using human genome as the reference sequence and a set of short reads generated using Illumina sequencing technology as the query sequences. 
 
 Configuration 1:
 	len data:  158970136 characters  (data/Ref Genome]-MT-human2.fa)
