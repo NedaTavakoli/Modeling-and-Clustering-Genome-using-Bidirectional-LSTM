@@ -14,7 +14,7 @@ parser.add_argument('--hidden_size', type=int, default=100,
                     help='size of hidden layer')
 parser.add_argument('--num_steps', type=int, default=35,
                     help='number of LSTM steps')
-parser.add_argument('--num_layers', type=int, default=4,
+parser.add_argument('--num_layers', type=int, default=3,
                     help='number of LSTM layers')
 parser.add_argument('--batch_size', type=int, default=20,
                     help='batch size')
@@ -26,15 +26,34 @@ parser.add_argument('--inital_lr', type=float, default=20.0,
                     help='initial learning rate')
 parser.add_argument('--save', type=str,  default='models/lm_model',
                     help='filenames for components associated with model')
-parser.add_argument('--use_cuda', type=bool,  default=True,
+parser.add_argument('--use_cuda', type=str,  default="True",
                     help='run on cuda if available')
 parser.add_argument('--preprocess_dna', type=int,  default=None,
                     help='every x characters insert a space')
-parser.add_argument('--create_model', type=bool,  default=False,  # action='store_true',
+parser.add_argument('--create_model', type=str,  default="False",  # action='store_true',
                     help='create and train a model for vector representation')
-parser.add_argument('--vectorize_sequences', type=bool,  default=False,
+parser.add_argument('--vectorize_sequences', type=str,  default="False",
                     help='create vectorization of input sequences')
+parser.add_argument('--bi_lstm', type=str,  default="False",
+                    help='change into a bi-directional lstm instead of forward backward')
 args = parser.parse_args()
+
+if args.use_cuda.lower() == "false":
+    args.use_cuda = False
+else:
+    args.use_cuda = True
+if args.create_model.lower() == "true":
+    args.create_model = True
+else:
+    args.create_model = False
+if args.vectorize_sequences.lower() == "true":
+    args.vectorize_sequences = True
+else:
+    args.vectorize_sequences = False
+if args.bi_lstm.lower() == "true":
+    args.bi_lstm = True
+else:
+    args.bi_lstm = False
 
 # This was used for debugging and construction.
 if False:
@@ -54,6 +73,8 @@ if False:
     args.prepocess_dna = 1
     args.create_model = False
     args.vectorize_sequences = True
+    args.bi_lstm = False
+
 
 
 def main():

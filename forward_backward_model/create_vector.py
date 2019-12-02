@@ -38,8 +38,8 @@ def run_epoch(model, data, is_train=False, lr=1.0, device=torch.device('cpu')):
         # I think x is the input to the LSTM and y is the expected output
         inputs = Variable(torch.from_numpy(x.astype(np.int64)).transpose(0, 1).contiguous()).to(device)
         model.zero_grad()
-        hidden = repackage_hidden(hidden)  # TODO: come up with better way of doing this.  Looks to wipe the previous gradient?
-        outputs, hidden = model(inputs, hidden)  # TODO: what does this do?  I think you pass it words ids and hidden state
+        hidden = repackage_hidden(hidden)
+        outputs, hidden = model.forward(inputs=inputs, hidden=hidden)
         targets = Variable(torch.from_numpy(y.astype(np.int64)).transpose(0, 1).contiguous()).to(device)  # Tranposes and puts target words in tensor
         tt = torch.squeeze(targets.view(-1, model.batch_size * model.num_steps))
 
@@ -84,8 +84,13 @@ def run_prediction(model, my_words, inputs, device=torch.device('cpu')):
     hidden = model.init_hidden(batch_size=batch_size)
     hidden = repackage_hidden(hidden)
     # output, ((num_layers * num_directions, batch, hidden_size), (num_layers * num_directions, batch, hidden_size))
-    # num_directions = 1
     output, (h_n, c_n) = model.forward(inputs=working, hidden=hidden, num_steps=num_steps, batch_size=batch_size)
+    # Change to (num_layers, num_directions, batch, hidden_size)
+    h_n = h_n.view(model.num_layers, model.num_directions, batch_size, model.hidden_dim)
+    h_n = torch.transpose(h_n, 1, 2)  # change to (num_layers, batch, num_directions, hidden_size)
+    # Change to (num_layers, num_directions, batch, hidden_size)
+    c_n = c_n.view(model.num_layers, model.num_directions, batch_size, model.hidden_dim)
+    c_n = torch.transpose(c_n, 1, 2)  # change to (num_layers, batch, num_directions, hidden_size)
 
     # Pull out last word
     last_word = output[-1, 0]
@@ -141,12 +146,18 @@ def make_lstm_model(device, my_words, train_data, valid_data, test_data):
     """
 
     vocab_size = len(my_words.word_to_id)
+    if args.bi_lstm:
+        print("Making Bidirectional LSTM Model")
+        models = {'forward': None}
+    else:
+        print("Making Forward-Backward LSTM Model")
+        models = {'forward': None, 'backward': None}
 
-    models = {'forward': None, 'backward': None}
     for direction in models:
         models[direction] = LM_LSTM(embedding_dim=args.embedding_size, num_steps=args.num_steps,
                                     batch_size=args.batch_size, hidden_dim=args.hidden_size,
-                                    vocab_size=vocab_size, num_layers=args.num_layers, dp_keep_prob=args.dp_keep_prob)
+                                    vocab_size=vocab_size, num_layers=args.num_layers, dp_keep_prob=args.dp_keep_prob,
+                                    bidirectional=args.bi_lstm)
         models[direction].direction = direction
         models[direction].to(device)  # Move model to GPU if cuda is utilized
     lr = args.inital_lr
@@ -157,12 +168,20 @@ def make_lstm_model(device, my_words, train_data, valid_data, test_data):
     for epoch in range(args.num_epochs):
         lr_decay = lr_decay_base ** max(epoch - m_flat_lr, 0)
         lr = lr * lr_decay  # decay lr if it is timeUntitled4
-        train_p_f = run_epoch(models['forward'], train_data, True, lr, device)
-        train_p_b = run_epoch(models['backward'], train_data, True, lr, device)
-        print('Train perplexity at epoch {}: forward: {:8.2f}, backward: {:8.2f}'.format(epoch, train_p_f, train_p_b))
-        # print('Validation perplexity at epoch {}: forward: {:8.2f}, backward: {:8.2f}'
-        #       .format(epoch, run_epoch(model['forward'], valid_data, device=device),
-        #               run_epoch(model['backward'], valid_data, device=device)))
+        train_p = dict()
+        for model in models:
+            train_p[model] = run_epoch(models[model], train_data, True, lr, device)
+        if "backward" in models:
+            print('Train perplexity at epoch {}: forward: {:8.2f}, backward: {:8.2f}'
+                  .format(epoch, train_p["forward"], train_p["backward"]))
+            # print('Validation perplexity at epoch {}: forward: {:8.2f}, backward: {:8.2f}'
+            #       .format(epoch, run_epoch(model['forward'], valid_data, device=device),
+            #               run_epoch(model['backward'], valid_data, device=device)))
+        else:
+            print('Train perplexity at epoch {}: forward: {:8.2f}'
+                  .format(epoch, train_p["forward"]))
+            # print('Validation perplexity at epoch {}: forward: {:8.2f}'
+            #       .format(epoch, run_epoch(model['forward'], valid_data, device=device)))
 
     save_data(models=models)  # Save the results
 
@@ -175,6 +194,12 @@ def make_lstm_model(device, my_words, train_data, valid_data, test_data):
 def save_data(models=None, my_words=None):
     if models is not None:
         print("########## Saving Models ######################")
+
+        if args.bi_lstm:
+            print("Word Embedding Bidirectional LSTM Model")
+        else:
+            print("Word Embedding Forward-Backward LSTM Model")
+
         for direction in models:
             with open(args.save + "_" + direction + ".pt", "wb") as f:
                 torch.save(models[direction], f)
@@ -193,7 +218,13 @@ def load_data():
     """
     print("########## Loading ##########################")
     models = dict()
-    for direction in ['forward', 'backward']:
+    if args.bi_lstm:
+        print("Loading Bidirectional LSTM Model")
+        directions = ['forward']
+    else:
+        print("Loading Forward-Backward LSTM Model")
+        directions = ['forward', 'backward']
+    for direction in directions:
         with open(args.save + "_" + direction + ".pt", "rb") as f:
             models[direction] = torch.load(f)
     with open(args.save + "_word_dict.pt", "rb") as f:
@@ -213,6 +244,10 @@ def vector_seq(device, models, my_words):
     """
 
     print("########## Sequencing #######################")
+    if args.bi_lstm:
+        print("Sequencing Bidirectional LSTM Model")
+    else:
+        print("Sequencing Forward-Backward LSTM Model")
     with open("data/" + args.query_sequences, "r") as f:
         read_text = f.read().split(",")  # Returns a list of query sequences (list of strings)
 
@@ -241,8 +276,9 @@ def vector_seq(device, models, my_words):
                     # No delimiter expected (MAKE SURE YOU UNDERSTAND WHAT ALLOWING FOR A DELIMETER DOES BEFORE REMOVING)
                     np.savetxt(fname=f, X=my_output, fmt='%.18e', delimiter='ERROR', newline=',')
 
-                if models[direction].direction == "backward":
-                    with open(file_path, "r+") as f:  # This removes the comma and adds newline after backward hidden layer
+                if models[direction].direction == "backward" or args.bi_lstm:
+                    # This removes the comma and adds newline after backward hidden layer or bi-directional lstm
+                    with open(file_path, "r+") as f:
                         f.seek(0, os.SEEK_END)  # seek to end of file
                         f.seek(f.tell() - 1, os.SEEK_SET)  # Go towards the begining of the file 1 character
                         f.truncate()  # Remove the comma after the last value
@@ -266,6 +302,11 @@ def vector_word(device, models, my_words):
     if os.path.exists(file_path):
         os.remove(file_path)  # Remove previous file
 
+    if args.bi_lstm:
+        print("Word Embedding Bidirectional LSTM Model")
+    else:
+        print("Word Embedding Forward-Backward LSTM Model")
+
     for direction in models:
         models[direction].eval()
 
@@ -288,8 +329,9 @@ def vector_word(device, models, my_words):
                 # No delimiter expected (MAKE SURE YOU UNDERSTAND WHAT ALLOWING FOR A DELIMETER DOES BEFORE REMOVING)
                 np.savetxt(fname=f, X=my_output, fmt='%.18e', delimiter='ERROR', newline=',')
 
-            if models[direction].direction == "backward":
-                with open(file_path, "r+") as f:  # This removes the comma and adds newline after backward hidden layer
+            if models[direction].direction == "backward" or args.bi_lstm:
+                # This removes the comma and adds newline after backward hidden layer or bi-directional lstm
+                with open(file_path, "r+") as f:
                     f.seek(0, os.SEEK_END)  # seek to end of file
                     f.seek(f.tell() - 1, os.SEEK_SET)  # Go towards the begining of the file 1 character
                     f.truncate()  # Remove the comma after the last value
