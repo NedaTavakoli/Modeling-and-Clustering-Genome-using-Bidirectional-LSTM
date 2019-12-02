@@ -2,7 +2,7 @@
 
 ### Project website: https://nedatavakoli.github.io/Modeling-and-Clustering-Genome-using-Bidirectional-LSTM/
 
-In this project, two Deep-Learning based models are presented to model genome data set: Bidirectioanl LSTM and forward-backward LSTM. If you have any questions feel free to contact us.
+In this project, two Deep-Learning based models are presented to model genome data set: Bidirectioanl LSTM and Forward Backward LSTM. If you have any questions feel free to contact us, our emails are listed at the end of this document.
 ##  Model 1: Bidirectional LSTM to model human genome:
 The LSTM-based learning networks are an extension for RNNs. These models are capable of addressing the vanishing gradient problem in a very clean manner (i.e., RNN's difficulties in learning long-term dependencies). LSTM networks extend the RNNs memory and enable them learn long-term dependencies. They can remember information over a long period of time and can read, write, and delete information from theirs memories. The LSTM memory is called a **gated cell**, in which a gate refers to its ability to make the decision of preserving or ignoring the memory. The follwoing picture shows one LSTM cell.
 LSTM model has the following 
@@ -98,14 +98,11 @@ The following picture shows batches and Epoch inside the reference genome.
 |2 | 0.184 | 0.186 | 0.186 | 4 |
 |6 | 0.704 | 0.704 | 0.709 | 2 |
 
-Lane's Model
-
-|Word size | KMeans | DBScan | GMM | Number of clusters |
-|--------- | ------ | ------ | --- | ------------------ |
-| 4 | 0.305 | 0.206 | 0.305 | 2 |
-
 ##  Model 2:  Modeling and Clustering Genome using Foward Backward LSTM
-Lane also wrote the code for a forward backward LSTM, where one LSTM progressed forwards through the training data while the other progressed backwards.
+A 2nd LSTM model was developed as the 1st model had restricted use because of its research nature and was not available for all members of the group to use.  Model 2 added the functionality of a Forward Backward LSTM, where one LSTM progressed forwards through the training data while the other progressed backwards.  Separating the forward and backward passes of the LSTM into seperate predictions forces each model to only concentrate on predicting in a single direction.  This feature was desired as a mitigation of a suspected training issue with the bidirectional model.  The Forward Backward model uses the same LSTM cell and epoch scheme as Model 1, only differing on how predictions and loss are created.  Here is a picture of Forward Backward LSTM architecture.
+
+![Forward Backward LSTM](forward_backward_model/architecture/forward_backward_lstm.png)
+
 This model was trained on the fasta representation for Chromosome 12 dataset for two configurations on Google Colab, the details of which are given as follows:
 
 # Configuration 1
@@ -151,7 +148,7 @@ This model was trained on the fasta representation for Chromosome 12 dataset for
 
 ### Note:  If you have any questions feel free to contact us:
 	Neda Tavakoli, email: neda.tavakoli@gatech.edu, 
-	Lane Dalan, email:
+	Lane Dalan, email: lddalan@gmail.com
 	Richa Tibrewal, email: richa.tibrewal@gatech.edu
 	Arthita Ghosh, email: aghosh80@gatech.edu
 	Harish Kupo KPS:
