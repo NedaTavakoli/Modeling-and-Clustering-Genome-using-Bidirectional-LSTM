@@ -147,7 +147,7 @@ This model was trained on the fasta representation for Chromosome 12 dataset for
 
 
 ### Note:  If you have any questions feel free to contact us:
-	Neda Tavakoli, email: neda.tavakoli@gatech.edu, 
+	Neda Tavakoli, email: tavakoli.neda@gmail.com 
 	Lane Dalan, email: lddalan@gmail.com
 	Richa Tibrewal, email: richa.tibrewal@gatech.edu
 	Arthita Ghosh, email: aghosh80@gatech.edu
