@@ -1,4 +1,4 @@
-# Modeling-and-Clustering-Genome-using-Bidirectional-LSTM
+# Modeling-and-Clustering-Genome-using-Bidirectional-LSTM-and-Forward-Backward-LSTM
 
 ### Project website: https://nedatavakoli.github.io/Modeling-and-Clustering-Genome-using-Bidirectional-LSTM/
 
