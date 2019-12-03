@@ -112,7 +112,7 @@ This model was trained on the fasta representation for Chromosome 12 dataset for
 3) Number of steps = 35
 4) Dictionary comprises 4-character words
 5) Batch-size = 20
-6) No. of epochs = 10
+6) No. of epochs = 200
 
 
 # Confguration 2 
@@ -122,15 +122,9 @@ This model was trained on the fasta representation for Chromosome 12 dataset for
 3) Number of steps = 35
 4) Dictionary comprises 1-character words
 5) Batch-size = 20
-6) No. of epochs = 10
+6) No. of epochs = 200
 
-# Clustering Results:
-
-|Word size | KMeans | DBScan | GMM | Number of clusters |
-|--------- | ------ | ------ | --- | ------------------ |
-| 4 | 0.305 | 0.206 | 0.305 | 2 |
-
-
+With other configurations remaining the same, we tried using these trained models to find vector representations for our query sequences. Once we found those representations, we proceeced to cluster them using the aforementioned clustering algorithms. However, the number of clusters formed was around 50 with a high silhoutte score. This made sense because bidirectional LSTMs exploit both the right and left context of a sequence to learn or understand patterns, unlike forward or backward LSTMs which can only use past information (left context). Since repeating sequences in a genome are heavily influenced by what they are surrounded with, both on the left and right, employing a bi-directional LSTM to understand and vectorize sequences is a much better option than using normal LSTMs. 
 
 
 ##  Model 3:  Modeling English text using LSTM
