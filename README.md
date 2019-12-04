@@ -8,7 +8,7 @@
 | Lane Dalan       |    Model 2                  |
 | Richa Tibrewal   |    Clustering               |
 | Arthita Ghosh    |    Train Model 2            |
-| Harish Kupo KPS  |    Test on English Text     |
+| Harish Kupo KPS  |    Train on English Text    |
 
 
 In this project, two Deep-Learning based models are presented to model genome data set: Bidirectioanl LSTM and Forward Backward LSTM. For both models the LSTM predictive model was trained on one of two data sets, DNA sequence or natural english test. Once the model was trained query sequences were fed into the model and the vectorization of the LSTM layer was taken as an embedding vector for that query sequence. The embedding vectors of several queries were then run through various clustering algorithms to group sequences found in similar contexts. Clustering DNA sequences in this way can provide insight into what sequences play similar roles or can be found in similar contexts. The natural text modeling and clustering was done primarily to demonstrate the models validity on humnan interpretable content. The advantage of creating a sequence vectorization is that once the (admittedly high) upfront cost of training the LSTM is paid any number of vectorizations can be created very quickly. If you have any questions feel free to contact us, our emails are listed at the end of this document.
