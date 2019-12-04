@@ -194,4 +194,4 @@ The code for clustering is available as a colab project [here](https://colab.res
 	Lane Dalan, email: lddalan@gmail.com
 	Richa Tibrewal, email: richa.tibrewal@gatech.edu
 	Arthita Ghosh, email: aghosh80@gatech.edu
-	Harish Kupo KPS: harishkrupo@gmail.com
+	Harish Kupo KPS, email: harishkrupo@gmail.com
