@@ -2,8 +2,7 @@
 
 [Project website](https://nedatavakoli.github.io/Modeling-and-Clustering-Genome-using-Bidirectional-LSTM/)
 
-
-
+|        Name      |        Contribution         | 
 |------------------|-----------------------------|
 | Neda Tavakoli    |    Model 1 and Training     |
 | Lane Dalan       |    Model 2                  |
